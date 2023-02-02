@@ -1,12 +1,12 @@
 {
-    "name": "ryangjchandler/filament-navigation",
+    "name": "houssamn64/filament-navigation",
     "description": "Build structured navigation menus in Filament.",
     "keywords": [
-        "ryangjchandler",
+        "houssamn64",
         "laravel",
         "filament-navigation"
     ],
-    "homepage": "https://github.com/ryangjchandler/filament-navigation",
+    "homepage": "https://github.com/houssamn64/filament-navigation",
     "license": "MIT",
     "authors": [
         {
@@ -70,6 +70,13 @@
             }
         }
     },
+
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/houssamn64/filament-navigation"
+        }
+    ]
 }

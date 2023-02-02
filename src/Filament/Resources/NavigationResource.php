@@ -7,6 +7,7 @@ use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\View;
 use Filament\Forms\Components\ViewField;
 use Filament\Resources\Form;
@@ -50,10 +51,15 @@ class NavigationResource extends Resource
                             $set('handle', Str::slug($state));
                         })
                         ->required(),
+                    Toggle::make('is_admin')
+                        ->onColor('success')
+                        ->offColor('danger')
+                        ->inline(),
                     ViewField::make('items')
                         ->label(__('filament-navigation::filament-navigation.attributes.items'))
                         ->default([])
-                        ->view('filament-navigation::navigation-builder'),
+                        ->view('filament-navigation::navigation-builder')
+                        ->disabled(! 'is_admin'),
                 ])
                     ->columnSpan([
                         12,
