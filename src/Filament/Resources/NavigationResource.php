@@ -2,10 +2,12 @@
 
 namespace RyanChandler\FilamentNavigation\Filament\Resources;
 
+use App\Models\HomeBuilder;
 use Closure;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\View;
@@ -51,15 +53,24 @@ class NavigationResource extends Resource
                             $set('handle', Str::slug($state));
                         })
                         ->required(),
-                    Toggle::make('is_admin')
+                    Toggle::make('is_subnav')
                         ->onColor('success')
                         ->offColor('danger')
+                        ->reactive()
                         ->inline(),
                     ViewField::make('items')
                         ->label(__('filament-navigation::filament-navigation.attributes.items'))
                         ->default([])
                         ->view('filament-navigation::navigation-builder')
-                        ->disabled(! 'is_admin'),
+                        ->dehydrated()
+                        ->hidden(function (Closure $get){  return !$get('is_subnav');}),
+                    Select::make('page_id')
+                        ->searchable()
+                        ->Label(__('Page'))
+                        ->options(function () {
+                            return HomeBuilder::pluck('name','id');
+                        })
+                        ->hidden(function (callable $get){ return $get('is_subnav');}),
                 ])
                     ->columnSpan([
                         12,
