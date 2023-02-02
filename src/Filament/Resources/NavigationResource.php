@@ -2,7 +2,7 @@
 
 namespace RyanChandler\FilamentNavigation\Filament\Resources;
 
-use App\Models\HomeBuilder;
+use App\Models\PageBuilder;
 use Closure;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
@@ -74,7 +74,7 @@ class NavigationResource extends Resource
                         ->searchable()
                         ->Label(__('Page'))
                         ->options(function () {
-                            return HomeBuilder::pluck('name','id');
+                            return PageBuilder::pluck('name','id');
                         })
                         ->hidden(function (callable $get){ return !$get('is_subnav');}),
                 ])
