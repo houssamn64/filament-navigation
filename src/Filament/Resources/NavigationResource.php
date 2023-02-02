@@ -62,8 +62,6 @@ class NavigationResource extends Resource
                         ->afterStateUpdated(function (?string $state, Closure $set) {
                             if($state)
                                 $set('page_id', null);
-                            else
-                                $set('items', null);
                         })
                         ->inline(),
                     ViewField::make('items')
