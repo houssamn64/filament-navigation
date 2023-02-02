@@ -15,6 +15,8 @@ use Filament\Forms\Components\ViewField;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
@@ -49,28 +51,34 @@ class NavigationResource extends Resource
                             if (! $state) {
                                 return;
                             }
-
                             $set('handle', Str::slug($state));
                         })
                         ->required(),
                     Toggle::make('is_subnav')
+                        ->label(__('attach to page'))
                         ->onColor('success')
                         ->offColor('danger')
                         ->reactive()
+                        ->afterStateUpdated(function (?string $state, Closure $set) {
+                            if($state)
+                                $set('page_id', null);
+                            else
+                                $set('items', null);
+                        })
                         ->inline(),
                     ViewField::make('items')
                         ->label(__('filament-navigation::filament-navigation.attributes.items'))
                         ->default([])
                         ->view('filament-navigation::navigation-builder')
                         ->dehydrated()
-                        ->hidden(function (Closure $get){  return !$get('is_subnav');}),
+                        ->hidden(function (Closure $get){  return $get('is_subnav');}),
                     Select::make('page_id')
                         ->searchable()
                         ->Label(__('Page'))
                         ->options(function () {
                             return HomeBuilder::pluck('name','id');
                         })
-                        ->hidden(function (callable $get){ return $get('is_subnav');}),
+                        ->hidden(function (callable $get){ return !$get('is_subnav');}),
                 ])
                     ->columnSpan([
                         12,
@@ -152,6 +160,11 @@ class NavigationResource extends Resource
                     ->sortable(),
             ])
             ->filters([
+
+            ])
+            ->actions( [
+                EditAction::make(),
+                DeleteAction::make(),
 
             ]);
     }
