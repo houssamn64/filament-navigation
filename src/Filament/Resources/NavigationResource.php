@@ -21,8 +21,9 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use RyanChandler\FilamentNavigation\Models\Navigation;
+use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 
-class NavigationResource extends Resource
+class NavigationResource extends Resource implements HasShieldPermissions
 {
     public static function getPermissionPrefixes(): array
     {
