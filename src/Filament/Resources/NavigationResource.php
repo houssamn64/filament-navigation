@@ -3,6 +3,7 @@
 namespace RyanChandler\FilamentNavigation\Filament\Resources;
 
 use App\Models\PageBuilder;
+use App\Models\User;
 use Closure;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
@@ -18,6 +19,7 @@ use Filament\Resources\Table;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use RyanChandler\FilamentNavigation\Models\Navigation;
@@ -185,6 +187,39 @@ class NavigationResource extends Resource implements HasShieldPermissions
             'create' => NavigationResource\Pages\CreateNavigation::route('/create'),
             'edit' => NavigationResource\Pages\EditNavigation::route('/{record}'),
         ];
+    }
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+
+    public static function canDelete(Model $record): bool
+    {
+        return false;
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return false;
+    }
+
+
+    public static function canGloballySearch(): bool
+    {
+        return false;
+    }
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('view_any_navigation');
+    }
+    public static function canView(Model $record): bool
+    {
+        return auth()->user()->can('view_navigation');
+    }
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->user()->can('update_navigation');
     }
 
     public static function getModel(): string
