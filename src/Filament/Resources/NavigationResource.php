@@ -24,6 +24,16 @@ use RyanChandler\FilamentNavigation\Models\Navigation;
 
 class NavigationResource extends Resource
 {
+    public static function getPermissionPrefixes(): array
+    {
+        return [
+            'view',
+            'view_any',
+            'create',
+            'update',
+            'delete',
+        ];
+    }
     protected static ?string $navigationIcon = 'heroicon-o-menu';
 
     protected static bool $showTimestamps = true;

@@ -32,23 +32,7 @@ class FilamentNavigationManager
 
     public function getItemTypes(): array
     {
-        return array_merge([
-            'external-link' => [
-                'name' => __('filament-navigation::filament-navigation.attributes.external-link'),
-                'fields' => [
-                    TextInput::make('url')
-                        ->label(__('filament-navigation::filament-navigation.attributes.url'))
-                        ->required(),
-                    Select::make('target')
-                        ->label(__('filament-navigation::filament-navigation.attributes.target'))
-                        ->options([
-                            '' => __('filament-navigation::filament-navigation.select-options.same-tab'),
-                            '_blank' => __('filament-navigation::filament-navigation.select-options.new-tab'),
-                        ])
-                        ->default(''),
-                ],
-            ],
-        ], $this->itemTypes);
+        return  $this->itemTypes;
     }
 
     public static function getModel(): string
