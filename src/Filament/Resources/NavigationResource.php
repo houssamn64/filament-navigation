@@ -190,13 +190,13 @@ class NavigationResource extends Resource implements HasShieldPermissions
     }
     public static function canCreate(): bool
     {
-        return false;
+        return auth()->user()->can('create_navigation');
     }
 
 
     public static function canDelete(Model $record): bool
     {
-        return false;
+        return auth()->user()->can('delete_navigation');
     }
 
     public static function canDeleteAny(): bool
@@ -204,11 +204,6 @@ class NavigationResource extends Resource implements HasShieldPermissions
         return false;
     }
 
-
-    public static function canGloballySearch(): bool
-    {
-        return false;
-    }
     public static function canViewAny(): bool
     {
         return auth()->user()->can('view_any_navigation');
